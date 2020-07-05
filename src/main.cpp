@@ -4,26 +4,21 @@
 #include "system/memory.h"
 #include "utils/logger.h"
 #include "utils/utils.h"
+#include <whb/log_udp.h>
 
 /* Entry point */
 extern "C" int Menu_Main(void) {
-    //!*******************************************************************
-    //!                   Initialize function pointers                   *
-    //!*******************************************************************
-    socket_lib_init();
-    //! do OS (for acquire) and sockets first so we got logging
-    log_init();
+    WHBLogUdpInit();
 
-    log_print("Initialize memory management\n");
+    DEBUG_FUNCTION_LINE("Initialize memory management");
     memoryInitialize();
 
     //!*******************************************************************
     //!                    Initialize heap memory                        *
     //!*******************************************************************
 
-    log_printf("Start main application\n");
+    DEBUG_FUNCTION_LINE("Start main application");
     Application::instance()->exec();
-
     Application::destroyInstance();
 
     return 0;

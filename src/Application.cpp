@@ -52,22 +52,22 @@ Application::Application()
 }
 
 Application::~Application() {
-    log_printf("Destroy music\n");
+    DEBUG_FUNCTION_LINE("Destroy music");
 
     delete bgMusic;
 
-    log_printf("Destroy controller\n");
+    DEBUG_FUNCTION_LINE("Destroy controller");
 
     for (int i = 0; i < 5; i++)
         delete controller[i];
 
-    log_printf("Destroy async deleter\n");
     AsyncDeleter::destroyInstance();
+    DEBUG_FUNCTION_LINE("Destroy async deleter");
 
-    log_printf("Clear resources\n");
+    DEBUG_FUNCTION_LINE("Clear resources");
     Resources::Clear();
 
-    log_printf("Stop sound handler\n");
+    DEBUG_FUNCTION_LINE("Stop sound handler");
     SoundHandler::DestroyInstance();
 
     ProcUIShutdown();
@@ -139,27 +139,27 @@ bool Application::procUI(void) {
 
     switch (ProcUIProcessMessages(true)) {
         case PROCUI_STATUS_EXITING: {
-            log_printf("PROCUI_STATUS_EXITING\n");
+            DEBUG_FUNCTION_LINE("PROCUI_STATUS_EXITING");
             exitCode = EXIT_SUCCESS;
             exitApplication = true;
             break;
         }
         case PROCUI_STATUS_RELEASE_FOREGROUND: {
-            log_printf("PROCUI_STATUS_RELEASE_FOREGROUND\n");
+            DEBUG_FUNCTION_LINE("PROCUI_STATUS_RELEASE_FOREGROUND");
             if (video != NULL) {
                 // we can turn of the screen but we don't need to and it will display the last image
                 video->tvEnable(true);
                 video->drcEnable(true);
 
-                log_printf("delete fontSystem\n");
+                DEBUG_FUNCTION_LINE("delete fontSystem");
                 delete fontSystem;
                 fontSystem = NULL;
 
-                log_printf("delete video\n");
+                DEBUG_FUNCTION_LINE("delete video");
                 delete video;
                 video = NULL;
 
-                log_printf("deinitialze memory\n");
+                DEBUG_FUNCTION_LINE("deinitialze memory");
                 memoryRelease();
                 ProcUIDrawDoneRelease();
             } else {
@@ -170,21 +170,21 @@ bool Application::procUI(void) {
         case PROCUI_STATUS_IN_FOREGROUND: {
             if (!quitRequest) {
                 if (video == NULL) {
-                    log_printf("PROCUI_STATUS_IN_FOREGROUND\n");
-                    log_printf("initialze memory\n");
+                    DEBUG_FUNCTION_LINE("PROCUI_STATUS_IN_FOREGROUND");
+                    DEBUG_FUNCTION_LINE("initialze memory");
                     memoryInitialize();
 
-                    log_printf("Initialize video\n");
+                    DEBUG_FUNCTION_LINE("Initialize video");
                     video = new CVideo(GX2_TV_SCAN_MODE_720P, GX2_DRC_RENDER_MODE_SINGLE);
-                    log_printf("Video size %i x %i\n", video->getTvWidth(), video->getTvHeight());
+                    DEBUG_FUNCTION_LINE("Video size %i x %i", video->getTvWidth(), video->getTvHeight());
 
                     //! setup default Font
-                    log_printf("Initialize main font system\n");
+                    DEBUG_FUNCTION_LINE("Initialize main font system");
                     FreeTypeGX *fontSystem = new FreeTypeGX(Resources::GetFile("font.ttf"), Resources::GetFileSize("font.ttf"), true);
                     GuiText::setPresetFont(fontSystem);
 
                     if (mainWindow == NULL) {
-                        log_printf("Initialize main window\n");
+                        DEBUG_FUNCTION_LINE("Initialize main window");
                         mainWindow = new MainWindow(video->getTvWidth(), video->getTvHeight());
                     }
 
@@ -202,7 +202,7 @@ bool Application::procUI(void) {
 }
 
 void Application::executeThread(void) {
-    log_printf("Entering main loop\n");
+    DEBUG_FUNCTION_LINE("Entering main loop");
 
     //! main GX2 loop (60 Hz cycle with max priority on core 1)
     while (!exitApplication) {
@@ -252,18 +252,18 @@ void Application::executeThread(void) {
         fadeOut();
     }
 
-    log_printf("delete mainWindow\n");
+    DEBUG_FUNCTION_LINE("delete mainWindow");
     delete mainWindow;
     mainWindow = NULL;
 
-    log_printf("delete fontSystem\n");
+    DEBUG_FUNCTION_LINE("delete fontSystem");
     delete fontSystem;
     fontSystem = NULL;
 
-    log_printf("delete video\n");
+    DEBUG_FUNCTION_LINE("delete video");
     delete video;
     video = NULL;
 
-    log_printf("deinitialze memory\n");
+    DEBUG_FUNCTION_LINE("deinitialze memory");
     memoryRelease();
 }
