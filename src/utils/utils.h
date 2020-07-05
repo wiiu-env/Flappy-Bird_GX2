@@ -1,5 +1,4 @@
-#ifndef __UTILS_H_
-#define __UTILS_H_
+#pragma once
 
 #include <malloc.h>
 
@@ -21,6 +20,11 @@ extern "C" {
 #define ALIGN4(x)           (((x) + 3) & ~3)
 #define ALIGN32(x) (((x) + 31) & ~31)
 
+// those work only in powers of 2
+#define ROUNDDOWN(val, align)   ((val) & ~(align-1))
+#define ROUNDUP(val, align)     ROUNDDOWN(((val) + (align-1)), align)
+
+
 #define le16(i)         ((((uint16_t) ((i) & 0xFF)) << 8) | ((uint16_t) (((i) & 0xFF00) >> 8)))
 #define le32(i)         ((((uint32_t)le16((i) & 0xFFFF)) << 16) | ((uint32_t)le16(((i) & 0xFFFF0000) >> 16)))
 #define le64(i) ((((uint64_t)le32((i) & 0xFFFFFFFFLL)) << 32) | ((uint64_t)le32(((i) & 0xFFFFFFFF00000000LL) >> 32)))
@@ -31,5 +35,3 @@ void dumpHex(const void *data, size_t size);
 #ifdef __cplusplus
 }
 #endif
-
-#endif // __UTILS_H_

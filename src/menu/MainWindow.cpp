@@ -21,7 +21,7 @@
 #include "utils/StringTools.h"
 #include "utils/logger.h"
 #include "resources/Resources.h"
-#include "system/AsyncDeleter.h"
+#include "utils/AsyncExecutor.h"
 
 MainWindow::MainWindow(int w, int h)
         : width(w), height(h) {
@@ -184,5 +184,5 @@ void MainWindow::OnOpenEffectFinish(GuiElement *element) {
 void MainWindow::OnCloseEffectFinish(GuiElement *element) {
     //! remove element from draw list and push to delete queue
     remove(element);
-    AsyncDeleter::pushForDelete(element);
+    AsyncExecutor::pushForDelete(element);
 }

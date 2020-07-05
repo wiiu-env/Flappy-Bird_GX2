@@ -23,7 +23,7 @@
  * Constructor for the GuiButton class.
  */
 
-Background::Background(char *picture, float scroll_speed) {
+Background::Background(const char *picture, float scroll_speed) {
     loc_x = 0.0f;
 
     bgImg = Resources::GetImageData(picture);

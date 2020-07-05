@@ -19,14 +19,14 @@
 #include <proc_ui/procui.h>
 #include <sysapp/launch.h>
 #include "Application.h"
-#include "gui/FreeTypeGX.h"
-#include "gui/VPadController.h"
-#include "gui/WPadController.h"
+#include <gui/FreeTypeGX.h>
+#include <gui/VPadController.h>
+#include <gui/WPadController.h>
 #include "resources/Resources.h"
-#include "gui/sounds/SoundHandler.hpp"
+#include <gui/sounds/SoundHandler.hpp>
 #include "system/memory.h"
-#include "system/AsyncDeleter.h"
 #include "utils/logger.h"
+#include "utils/AsyncExecutor.h"
 
 Application *Application::applicationInstance = NULL;
 bool Application::exitApplication = false;
@@ -61,8 +61,8 @@ Application::~Application() {
     for (int i = 0; i < 5; i++)
         delete controller[i];
 
-    AsyncDeleter::destroyInstance();
     DEBUG_FUNCTION_LINE("Destroy async deleter");
+    AsyncExecutor::destroyInstance();
 
     DEBUG_FUNCTION_LINE("Clear resources");
     Resources::Clear();
@@ -240,11 +240,6 @@ void Application::executeThread(void) {
         mainWindow->updateEffects();
 
         video->waitForVSync();
-
-        //! transfer elements to real delete list here after all processes are finished
-        //! the elements are transfered to another list to delete the elements in a separate thread
-        //! and avoid blocking the GUI thread
-        AsyncDeleter::triggerDeleteProcess();
     }
 
     //! in case we exit to a homebrew let's smoothly fade out

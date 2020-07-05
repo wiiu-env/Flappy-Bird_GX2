@@ -61,7 +61,6 @@ LIBDIRS	:= $(PORTLIBS) $(WUT_ROOT) $(WUT_ROOT)/usr
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 #-------------------------------------------------------------------------------
 FILELIST	:=	$(shell bash ./filelist.sh)
-
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
 export TOPDIR	:=	$(CURDIR)
 
@@ -141,17 +140,22 @@ $(OFILES_SRC)	: $(HFILES_BIN)
 	@echo $(notdir $<)
 	@$(bin2o)
 	
-%.ogg.o	%_ogg.h :	%.ogg
+%.jpg.o	%_jpg.h :	%.jpg
 	@echo $(notdir $<)
 	@$(bin2o)
+	
+%.ogg.o	%_ogg.h :	%.ogg
+	@echo $(notdir $<)
+	@$(bin2o)	
 	
 %.mp3.o	%_mp3.h :	%.mp3
 	@echo $(notdir $<)
-	@$(bin2o)
+	@$(bin2o)	
 	
 %.ttf.o	%_ttf.h :	%.ttf
 	@echo $(notdir $<)
-	@$(bin2o)
+	@$(bin2o)	
+	
 
 -include $(DEPENDS)
 

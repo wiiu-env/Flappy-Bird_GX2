@@ -37,7 +37,8 @@
 
 
 BOOL StringTools::EndsWith(const std::string &a, const std::string &b) {
-    if (b.size() > a.size()) return false;
+    if (b.size() > a.size())
+        return false;
     return std::equal(a.begin() + a.size() - b.size(), a.end(), b.begin());
 }
 
@@ -95,7 +96,7 @@ const wchar_t *StringTools::wfmt(const char *format, ...) {
     va_list va;
     va_start(va, format);
     if ((vsprintf(tmp, format, va) >= 0)) {
-        int bt;
+        int32_t bt;
         int32_t strlength = strlen(tmp);
         bt = mbstowcs(strWChar, tmp, (strlength < 512) ? strlength : 512);
 
@@ -144,7 +145,7 @@ BOOL StringTools::char2wchar_t(const char *strChar, wchar_t *dest) {
     if (!strChar || !dest)
         return false;
 
-    int bt;
+    int32_t bt;
     bt = mbstowcs(dest, strChar, strlen(strChar));
     if (bt > 0) {
         dest[bt] = 0;
@@ -207,4 +208,13 @@ std::vector<std::string> StringTools::stringSplit(const std::string &inValue, co
         value = value.substr(index + splitter.size(), value.length());
     }
     return result;
+}
+
+bool StringTools::findStringIC(const std::string &strHaystack, const std::string &strNeedle) {
+    auto it = std::search(
+            strHaystack.begin(), strHaystack.end(),
+            strNeedle.begin(), strNeedle.end(),
+            [](char ch1, char ch2) { return std::toupper(ch1) == std::toupper(ch2); }
+    );
+    return (it != strHaystack.end());
 }

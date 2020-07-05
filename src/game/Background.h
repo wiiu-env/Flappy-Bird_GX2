@@ -27,7 +27,7 @@
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)
 class Background : public GuiElement {
 public:
-    Background(char *picture, float scroll_speed);
+    Background(const char *picture, float scroll_speed);
 
     virtual ~Background();
 
