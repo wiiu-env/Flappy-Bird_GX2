@@ -20,8 +20,8 @@
 
 #include <vector>
 #include <queue>
+#include <mutex>
 #include "gui/Gui.h"
-#include "system/CMutex.h"
 #include "gui/GuiMainWindowScreen.h"
 
 class CVideo;
@@ -140,7 +140,7 @@ private:
     GuiImage *pointerImg[4];
     bool pointerValid[4];
 
-    CMutex guiMutex;
+    std::recursive_mutex guiMutex;
 };
 
 #endif //_MAIN_WINDOW_H_
