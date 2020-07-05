@@ -24,10 +24,9 @@
  * Constructor for the GuiButton class.
  */
 
-Pipe::Pipe(float x)
-{
+Pipe::Pipe(float x) {
     srand(OSGetTime());
-    loc_y=rand() % 250 - 125;
+    loc_y = rand() % 250 - 125;
     loc_x = x;
     pipeBottomImg = Resources::GetImageData("pipe_down.png");
     pipeTopImg = Resources::GetImageData("pipe_up.png");
@@ -37,48 +36,45 @@ Pipe::Pipe(float x)
     pipebottom->setAlignment(ALIGN_CENTER | ALIGN_CENTER);
     pipetop->setAlignment(ALIGN_CENTER | ALIGN_CENTER);
 
-    pipebottom->setPosition((int)loc_x,-410-loc_y);
-    pipetop->setPosition((int)loc_x,410-loc_y);
+    pipebottom->setPosition((int) loc_x, -410 - loc_y);
+    pipetop->setPosition((int) loc_x, 410 - loc_y);
 
-    scroll_state=false;
+    scroll_state = false;
 }
 
 /**
  * Destructor for the GuiButton class.
  */
-Pipe::~Pipe()
-{
-    loc_x=0.0f;
-    loc_y=0.0f;
-    scroll_state=0;
-    delete(pipetop);
-    delete(pipebottom);
-    delete(pipeTopImg);
-    delete(pipeBottomImg);
+Pipe::~Pipe() {
+    loc_x = 0.0f;
+    loc_y = 0.0f;
+    scroll_state = 0;
+    delete (pipetop);
+    delete (pipebottom);
+    delete (pipeTopImg);
+    delete (pipeBottomImg);
 }
 
-void Pipe::setPosX(float x)
-{
-    loc_x=x;
-    pipebottom->setPosition((int)loc_x,-410-loc_y);
-    pipetop->setPosition((int)loc_x,410-loc_y);
+void Pipe::setPosX(float x) {
+    loc_x = x;
+    pipebottom->setPosition((int) loc_x, -410 - loc_y);
+    pipetop->setPosition((int) loc_x, 410 - loc_y);
 }
 
-void Pipe::setScroll(bool state)
-{
-        scroll_state=state;
+void Pipe::setScroll(bool state) {
+    scroll_state = state;
 }
 
-int Pipe::checkCollision(GuiImage* check)
-{
-    if((pipetop->getLeft()-pipetop->getWidth()/4.0f)<(check->getLeft()+check->getWidth()/2.0f) && (pipetop->getLeft()+pipetop->getWidth()/2)>(check->getLeft()-check->getWidth()/2.0f)) { //How can that thing work? No, really...
-        poss_collision=1;
-        if((check->getTop()+check->getHeight()/2.0f)>(pipetop->getTop()-720.0f) || ((check->getTop()-check->getHeight()/2.0f))<pipebottom->getTop()) {
-            poss_collision=0; //we already collided
+int Pipe::checkCollision(GuiImage *check) {
+    if ((pipetop->getLeft() - pipetop->getWidth() / 4.0f) < (check->getLeft() + check->getWidth() / 2.0f) &&
+        (pipetop->getLeft() + pipetop->getWidth() / 2) > (check->getLeft() - check->getWidth() / 2.0f)) { //How can that thing work? No, really...
+        poss_collision = 1;
+        if ((check->getTop() + check->getHeight() / 2.0f) > (pipetop->getTop() - 720.0f) || ((check->getTop() - check->getHeight() / 2.0f)) < pipebottom->getTop()) {
+            poss_collision = 0; //we already collided
             return 1;
         }
-    } else if (poss_collision==1) { //We just surpassed the problem
-        poss_collision=0;
+    } else if (poss_collision == 1) { //We just surpassed the problem
+        poss_collision = 0;
         return -1; //Add point
     }
     return 0;
@@ -88,27 +84,25 @@ int Pipe::checkCollision(GuiImage* check)
 /**
  * Draw the button on screen
  */
-void Pipe::draw(CVideo *v)
-{
-        if(scroll_state==true) {
-            loc_x-=1.5f;
-            if (loc_x<-640.0f) {
-                loc_x=700.0f;
-                loc_y=rand() % 250 - 125;
-            }
-            pipebottom->setPosition((int)loc_x,-410-loc_y);
-            pipetop->setPosition((int)loc_x,410-loc_y);
+void Pipe::draw(CVideo *v) {
+    if (scroll_state == true) {
+        loc_x -= 1.5f;
+        if (loc_x < -640.0f) {
+            loc_x = 700.0f;
+            loc_y = rand() % 250 - 125;
         }
+        pipebottom->setPosition((int) loc_x, -410 - loc_y);
+        pipetop->setPosition((int) loc_x, 410 - loc_y);
+    }
 
-	if(!this->isVisible())
-		return;
+    if (!this->isVisible())
+        return;
 
-	// draw images
-	pipebottom->draw(v);
-	pipetop->draw(v);
+    // draw images
+    pipebottom->draw(v);
+    pipetop->draw(v);
 }
 
-void Pipe::update(GuiController * c)
-{
+void Pipe::update(GuiController *c) {
 
 }

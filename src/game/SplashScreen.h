@@ -25,21 +25,27 @@
 #include "gui/GuiTrigger.h"
 
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)
-class SplashScreen : public GuiElement
-{
-	public:
-		SplashScreen(GuiImageData * img);
-		virtual ~SplashScreen();
-                void setSplashImageData(GuiImageData * img);
-                void FadeExit();
-       		void FadeEnter();
-		void draw(CVideo *video);
-		void update(GuiController * c);
-	protected:
-            GuiImage * img_real;
-            int state;
-            float trasparency=1.0f;
-            int tmp_xpos;
+class SplashScreen : public GuiElement {
+public:
+    SplashScreen(GuiImageData *img);
+
+    virtual ~SplashScreen();
+
+    void setSplashImageData(GuiImageData *img);
+
+    void FadeExit();
+
+    void FadeEnter();
+
+    void draw(CVideo *video);
+
+    void update(GuiController *c);
+
+protected:
+    GuiImage *img_real;
+    int state;
+    float trasparency = 1.0f;
+    int tmp_xpos;
 };
 
 #endif

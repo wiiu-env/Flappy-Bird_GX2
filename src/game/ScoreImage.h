@@ -25,18 +25,22 @@
 #include "gui/GuiTrigger.h"
 
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)
-class ScoreImage : public GuiElement
-{
-	public:
-		ScoreImage(int x, int y);
-		virtual ~ScoreImage();
-                void setScore(int score);
-		void draw(CVideo *video);
-		void update(GuiController * c);
-	protected:
-            GuiImageData* digitsImagesData[11]; //Our 10 numers + 1 null digit :P
-            GuiImage * digitsImages[3];
-            int digits[3];
+class ScoreImage : public GuiElement {
+public:
+    ScoreImage(int x, int y);
+
+    virtual ~ScoreImage();
+
+    void setScore(int score);
+
+    void draw(CVideo *video);
+
+    void update(GuiController *c);
+
+protected:
+    GuiImageData *digitsImagesData[11]; //Our 10 numers + 1 null digit :P
+    GuiImage *digitsImages[3];
+    int digits[3];
 };
 
 #endif

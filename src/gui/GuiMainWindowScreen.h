@@ -19,10 +19,10 @@
 
 #include <gui/Gui.h>
 
-class GuiMainWindowScreen : public GuiFrame
-{
+class GuiMainWindowScreen : public GuiFrame {
 public:
     GuiMainWindowScreen(int w, int h) : GuiFrame(w, h) {}
+
     virtual ~GuiMainWindowScreen() {}
 };
 

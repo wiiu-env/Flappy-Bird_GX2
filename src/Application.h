@@ -24,16 +24,16 @@
 // forward declaration
 class FreeTypeGX;
 
-class Application : public CThread
-{
+class Application : public CThread {
 public:
-    static Application * instance() {
-        if(!applicationInstance)
+    static Application *instance() {
+        if (!applicationInstance)
             applicationInstance = new Application();
         return applicationInstance;
     }
+
     static void destroyInstance() {
-        if(applicationInstance) {
+        if (applicationInstance) {
             delete applicationInstance;
             applicationInstance = NULL;
         }
@@ -42,6 +42,7 @@ public:
     CVideo *getVideo(void) const {
         return video;
     }
+
     MainWindow *getMainWindow(void) const {
         return mainWindow;
     }
@@ -51,12 +52,14 @@ public:
     }
 
     int exec(void);
+
     void fadeOut(void);
 
     void quit(int code);
 
 private:
     Application();
+
     virtual ~Application();
 
     bool procUI(void);

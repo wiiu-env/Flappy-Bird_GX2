@@ -6,8 +6,7 @@
 #include "utils/utils.h"
 
 /* Entry point */
-extern "C" int Menu_Main(void)
-{
+extern "C" int Menu_Main(void) {
     //!*******************************************************************
     //!                   Initialize function pointers                   *
     //!*******************************************************************
@@ -25,7 +24,7 @@ extern "C" int Menu_Main(void)
     log_printf("Start main application\n");
     Application::instance()->exec();
 
-    Application::destroyInstance();	
-	
+    Application::destroyInstance();
+
     return 0;
 }

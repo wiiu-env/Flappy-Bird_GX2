@@ -25,25 +25,31 @@
 #include "gui/GuiTrigger.h"
 
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)
-class Pipe : public GuiElement
-{
-	public:
-		Pipe(float x);
-		virtual ~Pipe();
-                void setPosX(float x);
-       		void setScroll(bool state);
-                int checkCollision(GuiImage* check);
-		void draw(CVideo *video);
-		void update(GuiController * c);
-	protected:
-            GuiImageData* pipeBottomImg;
-            GuiImageData* pipeTopImg;
-            GuiImage * pipebottom;
-            GuiImage * pipetop;
-            float loc_x;
-            int loc_y;
-            int poss_collision=0;
-            bool scroll_state;
+class Pipe : public GuiElement {
+public:
+    Pipe(float x);
+
+    virtual ~Pipe();
+
+    void setPosX(float x);
+
+    void setScroll(bool state);
+
+    int checkCollision(GuiImage *check);
+
+    void draw(CVideo *video);
+
+    void update(GuiController *c);
+
+protected:
+    GuiImageData *pipeBottomImg;
+    GuiImageData *pipeTopImg;
+    GuiImage *pipebottom;
+    GuiImage *pipetop;
+    float loc_x;
+    int loc_y;
+    int poss_collision = 0;
+    bool scroll_state;
 };
 
 #endif

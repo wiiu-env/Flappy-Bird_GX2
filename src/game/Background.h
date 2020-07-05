@@ -25,20 +25,24 @@
 #include "gui/GuiTrigger.h"
 
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)
-class Background : public GuiElement
-{
-	public:
-		Background(char *picture, float scroll_speed);
-		virtual ~Background();
-       		void setScrollSpeed(float scroll_speed);
-		void draw(CVideo *video);
-		void update(GuiController * c);
-	protected:
-            GuiImageData* bgImg;
-            GuiImage * bg;
-            GuiImage * bgs;
-            float speed;
-            float loc_x;
+class Background : public GuiElement {
+public:
+    Background(char *picture, float scroll_speed);
+
+    virtual ~Background();
+
+    void setScrollSpeed(float scroll_speed);
+
+    void draw(CVideo *video);
+
+    void update(GuiController *c);
+
+protected:
+    GuiImageData *bgImg;
+    GuiImage *bg;
+    GuiImage *bgs;
+    float speed;
+    float loc_x;
 };
 
 #endif

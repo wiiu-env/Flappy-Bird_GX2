@@ -26,105 +26,97 @@
 
 class CVideo;
 
-class MainWindow : public sigslot::has_slots<>
-{
+class MainWindow : public sigslot::has_slots<> {
 public:
     MainWindow(int w, int h);
+
     virtual ~MainWindow();
 
-    void appendTv(GuiElement *e)
-    {
-        if(!e)
+    void appendTv(GuiElement *e) {
+        if (!e)
             return;
 
         removeTv(e);
         tvElements.push_back(e);
     }
-    void appendDrc(GuiElement *e)
-    {
-        if(!e)
+
+    void appendDrc(GuiElement *e) {
+        if (!e)
             return;
 
         removeDrc(e);
         drcElements.push_back(e);
     }
 
-    void append(GuiElement *e)
-    {
+    void append(GuiElement *e) {
         appendTv(e);
         appendDrc(e);
     }
 
-    void insertTv(uint32_t pos, GuiElement *e)
-    {
-        if(!e)
+    void insertTv(uint32_t pos, GuiElement *e) {
+        if (!e)
             return;
 
         removeTv(e);
         tvElements.insert(tvElements.begin() + pos, e);
     }
-    void insertDrc(uint32_t pos, GuiElement *e)
-    {
-        if(!e)
+
+    void insertDrc(uint32_t pos, GuiElement *e) {
+        if (!e)
             return;
 
         removeDrc(e);
         drcElements.insert(drcElements.begin() + pos, e);
     }
 
-    void insert(uint32_t pos, GuiElement *e)
-    {
+    void insert(uint32_t pos, GuiElement *e) {
         insertTv(pos, e);
         insertDrc(pos, e);
     }
 
-    void removeTv(GuiElement *e)
-    {
-        for(uint32_t i = 0; i < tvElements.size(); ++i)
-        {
-            if(e == tvElements[i])
-            {
+    void removeTv(GuiElement *e) {
+        for (uint32_t i = 0; i < tvElements.size(); ++i) {
+            if (e == tvElements[i]) {
                 tvElements.erase(tvElements.begin() + i);
                 break;
             }
         }
     }
-    void removeDrc(GuiElement *e)
-    {
-        for(uint32_t i = 0; i < drcElements.size(); ++i)
-        {
-            if(e == drcElements[i])
-            {
+
+    void removeDrc(GuiElement *e) {
+        for (uint32_t i = 0; i < drcElements.size(); ++i) {
+            if (e == drcElements[i]) {
                 drcElements.erase(drcElements.begin() + i);
                 break;
             }
         }
     }
 
-    void remove(GuiElement *e)
-    {
+    void remove(GuiElement *e) {
         removeTv(e);
         removeDrc(e);
     }
-    void removeAll()
-    {
+
+    void removeAll() {
         tvElements.clear();
         drcElements.clear();
     }
 
     void drawDrc(CVideo *video);
+
     void drawTv(CVideo *video);
+
     void update(GuiController *controller);
+
     void updateEffects();
 
     void process();
 
-    void lockGUI()
-    {
+    void lockGUI() {
         guiMutex.lock();
     }
-    void unlockGUI()
-    {
+
+    void unlockGUI() {
         guiMutex.unlock();
     }
 
@@ -132,6 +124,7 @@ private:
     void SetupMainView(void);
 
     void OnOpenEffectFinish(GuiElement *element);
+
     void OnCloseEffectFinish(GuiElement *element);
 
     int width, height;
@@ -140,8 +133,8 @@ private:
 
     GuiSound *ClickSound;
 
-    GuiMainWindowScreen * TvFrame;
-    GuiMainWindowScreen * DrcFrame;
+    GuiMainWindowScreen *TvFrame;
+    GuiMainWindowScreen *DrcFrame;
 
     GuiImageData *pointerImgData[4];
     GuiImage *pointerImg[4];

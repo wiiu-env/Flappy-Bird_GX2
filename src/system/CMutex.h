@@ -20,48 +20,52 @@
 #include <malloc.h>
 #include <coreinit/mutex.h>
 
-class CMutex
-{
+class CMutex {
 public:
     CMutex() {
-        pMutex = (OSMutex*) malloc(sizeof(OSMutex));
-        if(!pMutex)
+        pMutex = (OSMutex *) malloc(sizeof(OSMutex));
+        if (!pMutex)
             return;
 
         OSInitMutex(pMutex);
     }
+
     virtual ~CMutex() {
-        if(pMutex)
+        if (pMutex)
             free(pMutex);
     }
 
     void lock(void) {
-        if(pMutex)
+        if (pMutex)
             OSLockMutex(pMutex);
     }
+
     void unlock(void) {
-        if(pMutex)
+        if (pMutex)
             OSUnlockMutex(pMutex);
     }
+
     BOOL tryLock(void) {
-        if(!pMutex)
+        if (!pMutex)
             return false;
 
         return (OSTryLockMutex(pMutex) != 0);
     }
+
 private:
     OSMutex *pMutex;
 };
 
-class CMutexLock
-{
+class CMutexLock {
 public:
     CMutexLock() {
         mutex.lock();
     }
+
     virtual ~CMutexLock() {
         mutex.unlock();
     }
+
 private:
     CMutex mutex;
 };

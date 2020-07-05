@@ -23,8 +23,7 @@
  * Constructor for the GuiButton class.
  */
 
-ScoreImage::ScoreImage(int x, int y)
-{
+ScoreImage::ScoreImage(int x, int y) {
     digitsImagesData[0] = Resources::GetImageData("font_big_0.png");
     digitsImagesData[1] = Resources::GetImageData("font_big_1.png");
     digitsImagesData[2] = Resources::GetImageData("font_big_2.png");
@@ -36,11 +35,11 @@ ScoreImage::ScoreImage(int x, int y)
     digitsImagesData[8] = Resources::GetImageData("font_big_8.png");
     digitsImagesData[9] = Resources::GetImageData("font_big_9.png");
     digitsImagesData[10] = Resources::GetImageData("font_big_null.png");
- 
-    for (int i=0;i<3;i++) {
-       digitsImages[i] = new GuiImage(digitsImagesData[10]);
-       digitsImages[i]->setAlignment(ALIGN_CENTER | ALIGN_CENTER);
-       digitsImages[i]->setPosition(x+(i*36),y);
+
+    for (int i = 0; i < 3; i++) {
+        digitsImages[i] = new GuiImage(digitsImagesData[10]);
+        digitsImages[i]->setAlignment(ALIGN_CENTER | ALIGN_CENTER);
+        digitsImages[i]->setPosition(x + (i * 36), y);
     }
 
     digitsImages[2]->setImageData(digitsImagesData[0]);
@@ -49,40 +48,36 @@ ScoreImage::ScoreImage(int x, int y)
 /**
  * Destructor for the GuiButton class.
  */
-ScoreImage::~ScoreImage()
-{
+ScoreImage::~ScoreImage() {
     //for (int i=0;i<11;i++) delete(digitsImagesData[i]);
 }
 
-void ScoreImage::setScore(int score)
-{
+void ScoreImage::setScore(int score) {
     //Yeah, that's hacky and there are unusefull functions :P
-    if (score>999) score=999; //That's unlikey but...
-    for(int a=0;a<3;a++) digits[a]=10; //Initialize digits to 10 (=don't draw)
-    
-    digits[0]=(int)(score/pow(10, 0))%10;
-    if (score>9) digits[1]=(int)(score/pow(10, 1))%10;
-    if (score>99) digits[2]=(int)(score/pow(10, 2))%10;
+    if (score > 999) score = 999; //That's unlikey but...
+    for (int a = 0; a < 3; a++) digits[a] = 10; //Initialize digits to 10 (=don't draw)
 
-    for(int a=0; a<3; a++) digitsImages[a]->setImageData(digitsImagesData[digits[2-a]]);
+    digits[0] = (int) (score / pow(10, 0)) % 10;
+    if (score > 9) digits[1] = (int) (score / pow(10, 1)) % 10;
+    if (score > 99) digits[2] = (int) (score / pow(10, 2)) % 10;
+
+    for (int a = 0; a < 3; a++) digitsImages[a]->setImageData(digitsImagesData[digits[2 - a]]);
 }
 
 
 /**
  * Draw the button on screen
  */
-void ScoreImage::draw(CVideo *v)
-{
-	if(!this->isVisible())
-		return;
+void ScoreImage::draw(CVideo *v) {
+    if (!this->isVisible())
+        return;
 
-	// draw images
-	digitsImages[0]->draw(v);
-	digitsImages[1]->draw(v);
-        digitsImages[2]->draw(v);
+    // draw images
+    digitsImages[0]->draw(v);
+    digitsImages[1]->draw(v);
+    digitsImages[2]->draw(v);
 }
 
-void ScoreImage::update(GuiController * c)
-{
+void ScoreImage::update(GuiController *c) {
 
 }

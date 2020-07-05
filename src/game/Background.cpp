@@ -23,60 +23,55 @@
  * Constructor for the GuiButton class.
  */
 
-Background::Background(char *picture, float scroll_speed)
-{
-    loc_x=0.0f;
+Background::Background(char *picture, float scroll_speed) {
+    loc_x = 0.0f;
 
     bgImg = Resources::GetImageData(picture);
 
     bg = new GuiImage(bgImg);
     bgs = new GuiImage(bgImg);
-  
+
     bg->setPosition(0, 0);
     bgs->setPosition(-1280, 0);
 
-    speed=scroll_speed;
+    speed = scroll_speed;
 }
 
 /**
  * Destructor for the GuiButton class.
  */
-Background::~Background()
-{
-    speed=0.0f;
-    loc_x=0.0f;
-    delete(bgImg);
-    delete(bg);
-    delete(bgs);
+Background::~Background() {
+    speed = 0.0f;
+    loc_x = 0.0f;
+    delete (bgImg);
+    delete (bg);
+    delete (bgs);
 }
 
-void Background::setScrollSpeed(float scroll_speed)
-{
-        speed=scroll_speed;
+void Background::setScrollSpeed(float scroll_speed) {
+    speed = scroll_speed;
 }
 
 /**
  * Draw the button on screen
  */
-void Background::draw(CVideo *v)
-{
-        if(speed>0.0f) {
-            loc_x-=speed;
-            if(loc_x<0.0f) loc_x=1280.0f;
+void Background::draw(CVideo *v) {
+    if (speed > 0.0f) {
+        loc_x -= speed;
+        if (loc_x < 0.0f) loc_x = 1280.0f;
 
-            bg->setPosition((int)loc_x, 0);
-            bgs->setPosition((int)loc_x-1280, 0);
-        }
+        bg->setPosition((int) loc_x, 0);
+        bgs->setPosition((int) loc_x - 1280, 0);
+    }
 
-	if(!this->isVisible())
-		return;
+    if (!this->isVisible())
+        return;
 
-	// draw images
-	bg->draw(v);
-	bgs->draw(v);
+    // draw images
+    bg->draw(v);
+    bgs->draw(v);
 }
 
-void Background::update(GuiController * c)
-{
+void Background::update(GuiController *c) {
 
 }

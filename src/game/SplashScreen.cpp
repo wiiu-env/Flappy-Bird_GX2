@@ -22,8 +22,7 @@
  * Constructor for the GuiButton class.
  */
 
-SplashScreen::SplashScreen(GuiImageData * img)
-{
+SplashScreen::SplashScreen(GuiImageData *img) {
     img_real = new GuiImage(img);
     img_real->setAlignment(ALIGN_CENTER | ALIGN_CENTER);
     img_real->setPosition(0, 0);
@@ -32,61 +31,56 @@ SplashScreen::SplashScreen(GuiImageData * img)
 /**
  * Destructor for the GuiButton class.
  */
-SplashScreen::~SplashScreen()
-{
-    state=0;
-    delete(img_real);
+SplashScreen::~SplashScreen() {
+    state = 0;
+    delete (img_real);
 }
 
-void SplashScreen::setSplashImageData(GuiImageData * img)
-{
+void SplashScreen::setSplashImageData(GuiImageData *img) {
     img_real->setImageData(img);
 }
 
-void SplashScreen::FadeExit()
-{
-        trasparency=1.0f;
-        state=1;
-        img_real->setAlpha(trasparency);
+void SplashScreen::FadeExit() {
+    trasparency = 1.0f;
+    state = 1;
+    img_real->setAlpha(trasparency);
 }
-void SplashScreen::FadeEnter()
-{
-        trasparency=0.0f;
-        state=2;
-        img_real->setAlpha(trasparency);
+
+void SplashScreen::FadeEnter() {
+    trasparency = 0.0f;
+    state = 2;
+    img_real->setAlpha(trasparency);
 }
 
 
 /**
  * Draw the button on screen
  */
-void SplashScreen::draw(CVideo *v)
-{
-        if(state!=0) {
-            switch(state) {
-                case 1:
-                    if (trasparency>0.0f) {
-                        trasparency=trasparency-0.05f;
-                        img_real->setAlpha(trasparency);
-                    } else state=0;
-                    break;
-                case 2:
-                    if (trasparency<1.0f) {
-                        trasparency=trasparency+0.05f;
-                        img_real->setAlpha(trasparency);
-                    } else state=0;
-                    break;
-            }
+void SplashScreen::draw(CVideo *v) {
+    if (state != 0) {
+        switch (state) {
+            case 1:
+                if (trasparency > 0.0f) {
+                    trasparency = trasparency - 0.05f;
+                    img_real->setAlpha(trasparency);
+                } else state = 0;
+                break;
+            case 2:
+                if (trasparency < 1.0f) {
+                    trasparency = trasparency + 0.05f;
+                    img_real->setAlpha(trasparency);
+                } else state = 0;
+                break;
         }
+    }
 
-	if(!this->isVisible())
-		return;
+    if (!this->isVisible())
+        return;
 
-	// draw images
-	img_real->draw(v);
+    // draw images
+    img_real->draw(v);
 }
 
-void SplashScreen::update(GuiController * c)
-{
+void SplashScreen::update(GuiController *c) {
 
 }

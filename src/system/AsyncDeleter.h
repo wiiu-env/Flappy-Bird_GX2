@@ -32,11 +32,12 @@ public:
     class Element {
     public:
         Element() {}
+
         virtual ~Element() {}
     };
 
     static void pushForDelete(GuiElement *e) {
-        if(!deleterInstance)
+        if (!deleterInstance)
             deleterInstance = new AsyncDeleter;
 
         deleterInstance->deleteElements.push(e);
@@ -46,6 +47,7 @@ public:
 
 private:
     AsyncDeleter();
+
     virtual ~AsyncDeleter();
 
     static AsyncDeleter *deleterInstance;

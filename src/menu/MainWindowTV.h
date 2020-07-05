@@ -35,10 +35,12 @@
 
 class CVideo;
 
-class MainWindowTV : public GuiMainWindowScreen{
+class MainWindowTV : public GuiMainWindowScreen {
 public:
     MainWindowTV(int w, int h);
+
     virtual ~MainWindowTV();
+
 private:
     int width, height;
 
@@ -49,45 +51,47 @@ private:
     GuiSound *swooshSound;
     GuiSound *dieSound;
 
-    GuiImageData* bgImgData;
-    GuiImageData* fgImgData;
-    GuiImageData* splashImgData;
-    GuiImageData* looseImgData;
+    GuiImageData *bgImgData;
+    GuiImageData *fgImgData;
+    GuiImageData *splashImgData;
+    GuiImageData *looseImgData;
 
-    Background* bg;
-    Background* fg;
+    Background *bg;
+    Background *fg;
     //GuiImage* splash; //Splash screen
-    SplashScreen* splash;
+    SplashScreen *splash;
 
     ScoreImage *score_img;
-    int score=0;
+    int score = 0;
 
-    Pipe* pipes[4];
+    Pipe *pipes[4];
     int collision_state[4];
 
-    int bg_offset=0;
-    int fg_offset=0;
+    int bg_offset = 0;
+    int fg_offset = 0;
 
     GuiImageData *flappy_bird_frm[4];
 
-    GuiImage* flappy_bird;
+    GuiImage *flappy_bird;
 
-    int flappy_bird_change_skip=0;
-    int flappy_bird_curr_frame=0;
+    int flappy_bird_change_skip = 0;
+    int flappy_bird_curr_frame = 0;
 
 
-    int game_state=0; //0=start, 1=in-game, 2=game over
-    int set_gameover=0;
+    int game_state = 0; //0=start, 1=in-game, 2=game over
+    int set_gameover = 0;
 
-    #define gravity 0.25f
-    #define jump -4.6f
+#define gravity 0.25f
+#define jump -4.6f
 
-    float flappy_bird_position=-5.0f;
+    float flappy_bird_position = -5.0f;
     float flappy_bird_velocity = 0.0f;
     float flappy_bird_rotation = 0.0f;
 
     void draw(CVideo *v);
-    void update(GuiController * c);
+
+    void update(GuiController *c);
+
     void process();
 };
 
